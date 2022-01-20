@@ -12,7 +12,8 @@
 
 using namespace std ;
 
-color ray_color(const ray& r, const hittable& world, int depth) {
+// Calculates the color of a given ray based on...
+color ray_color( const ray& r, const hittable& world, int depth ) {
     hit_record rec;
 
     // If we've exceeded the ray bounce limit, no more light is gathered.
@@ -27,9 +28,10 @@ color ray_color(const ray& r, const hittable& world, int depth) {
         return color(0,0,0);
     }
 
-    vec3 unit_direction = unit_vector(r.direction());
-    auto t = 0.5*(unit_direction.y() + 1.0);
-    return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
+    // Creates a linear blend between two colors
+    vec3 unit_direction = unit_vector( r.direction() );
+    auto t = 0.5*( unit_direction.y() + 1.0 );
+    return ( 1.0 - t  ) * color( 1.0, 1.0, 1.0 ) + t * color( 0.5, 0.7, 1.0 );
 }
 
 
@@ -96,18 +98,16 @@ int main() {
     const int max_depth = 50 ;
 
     // World
-
     auto world = random_scene();
 
-    // Camera
-
-    point3 lookfrom(13,2,3);
-    point3 lookat(0,0,0);
-    vec3 vup(0,1,0);
+    // Places the camera in the world 
+    point3 lookfrom( 13, 2, 3 );
+    point3 lookat( 0, 0, 0 );
+    vec3 vup( 0, 1, 0 );
     auto dist_to_focus = 10.0;
     auto aperture = 0.1;
 
-    camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);
+    camera cam( lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus );
 
     // Renders the image to .txt and .ppm
     
@@ -121,19 +121,27 @@ int main() {
         for ( int i = 0; i < image_width; ++i ) {
             color pixel_color( 0,0,0 ) ;
             for ( int s = 0; s < samples_per_pixel; ++s ) {
-                auto u = ( i + random_double() ) / (image_width-1 ) ;
-                auto v = ( j + random_double() ) / (image_height-1 ) ;
+                
+                // U and V describe the coordinate endpoints for rays, x and y respectively.
+                // This section colors the background and gets darker the farther it goes from
+                //      the camera. 
+                auto u = ( i + random_double() ) / ( image_width  - 1 ) ;
+                auto v = ( j + random_double() ) / ( image_height - 1 ) ;
                 ray r = cam.get_ray( u, v ) ;
                 pixel_color += ray_color( r, world, max_depth ) ;
             }
+            
+            // Writes the colors to the .ppm and .txt file
             write_color( myPPM, pixel_color, samples_per_pixel ) ;
             write_color( textPPM, pixel_color, samples_per_pixel ) ;
         }
     }
 
+    // Closes the .txt and .ppm 
     textPPM.close() ;
     myPPM.close() ;
 
+    // Status update!!
     cout << "\nDone.\n";
     
     return 0 ;
