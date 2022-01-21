@@ -1,3 +1,8 @@
+// sphere.h
+// This file contains all the information for what a sphere will look like. 
+//      This includes the center of the circle, stored in the 3D vector class,
+//      the length of the radius, and which material the sphere should use. 
+
 #ifndef SPHERE_H
 #define SPHERE_H
 
