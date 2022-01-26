@@ -1,25 +1,28 @@
-#ifndef RTWEEKEND_H
-#define RTWEEKEND_H
+// rtweekend.h
+// We have a lot of common things we need for all of our files. Instead of 
+//      adding them to the top of each file, we simply define them here and 
+//      refer to this file in each header and the main file. 
 
-#include <cmath>
-#include <cstdlib>
-#include <limits>
-#include <memory>
+# ifndef RTWEEKEND_H
+# define RTWEEKEND_H
+
+// Libraries
+# include <cmath>
+# include <cstdlib>
+# include <limits>
+# include <memory>
 
 
 // Usings
-
 using std::shared_ptr;
 using std::make_shared;
 using std::sqrt;
 
 // Constants
-
 const double infinity = std::numeric_limits<double>::infinity();
 const double pi = 3.1415926535897932385;
 
 // Utility Functions
-
 inline double degrees_to_radians(double degrees) {
     return degrees * pi / 180.0;
 }
@@ -46,9 +49,8 @@ inline int random_int(int min, int max) {
 }
 
 // Common Headers
-
 #include "ray.h"
 #include "vec3.h"
 
 
-#endif
+# endif

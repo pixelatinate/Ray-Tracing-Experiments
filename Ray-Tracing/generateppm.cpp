@@ -1,5 +1,5 @@
 
-#include "rtweekend.h"
+# include "rtweekend.h"
 
 # include "color.h"
 # include "sphere.h"
@@ -12,7 +12,8 @@
 
 using namespace std ;
 
-// Calculates the color of a given ray based on...
+// Calculates the color of a given ray based on the originally defined color, 
+//      whether the object was hit, and where it is along the ray. 
 color ray_color( const ray& r, const hittable& world, int depth ) {
     hit_record rec;
 
@@ -34,7 +35,7 @@ color ray_color( const ray& r, const hittable& world, int depth ) {
     return ( 1.0 - t  ) * color( 1.0, 1.0, 1.0 ) + t * color( 0.5, 0.7, 1.0 );
 }
 
-
+// Adds a world plane to our scene
 hittable_list random_scene() {
     hittable_list world;
 

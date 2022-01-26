@@ -51,7 +51,8 @@ bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) cons
     } 
     auto sqrtd = sqrt(discriminant);
 
-    // Find the nearest root that lies in the acceptable range.
+    // Figures out whether a sphere was hit by finding the
+    //      nearest root that lies in the acceptable range.
     auto root = (-half_b - sqrtd) / a;
     if (root < t_min || t_max < root) {
         root = (-half_b + sqrtd) / a;
@@ -62,6 +63,9 @@ bool sphere::hit(const ray& r, double t_min, double t_max, hit_record& rec) cons
 
     rec.t = root;
     rec.p = r.at(rec.t);
+
+    // Used in coordination with material. See hittable.h for more 
+    //      information on what the normal is and how it's determined. 
     vec3 outward_normal = (rec.p - center) / radius;
     rec.set_face_normal(r, outward_normal);
     rec.mat_ptr = mat_ptr;
