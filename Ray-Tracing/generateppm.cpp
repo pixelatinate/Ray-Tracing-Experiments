@@ -84,6 +84,7 @@ hittable_list random_scene() {
 
 
 int main() {
+    srand( time(NULL) ) ;
 
     // Creates a .ppm and a .txt file to write the image data to
     ofstream myPPM ;
