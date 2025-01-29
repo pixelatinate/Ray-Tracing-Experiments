@@ -12,5 +12,3 @@ After navigating to the Ray-Tracing directory, you can run three commands.
 For people who are unfamiliar with .ppm's- that's the image file! Your computer should be able to open them directly. If not, there are a few online .ppm viewers, and I've also included the .txt file in there too. 
 
 Another thing I have changed is that in Peter's original code, the same image would be generated each time. I seed the random number generator because I thought it would be fun to have a new picture on each run. Feel free to remove the srand( time(NULL) ) ; line in generateppm.cpp. This can be helpful for troubleshooting or the like. 
-
-I've also added MUCH more in-line commenting that Peter 
